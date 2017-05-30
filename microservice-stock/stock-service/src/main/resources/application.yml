@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: stock-service
+    
+server:
+  port: 3000
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+      
+security:
+  oauth2:
+    client:
+      client-id: demo
+      client-secret: demo
+    resource:
+      token-info-uri: http://localhost:8000/uaa/oauth/check_token
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.cloud: DEBUG
+    org.springframework.web: DEBUG
+    org.shangyang.springcloud: DEBUG
+            

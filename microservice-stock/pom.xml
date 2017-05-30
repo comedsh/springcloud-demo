@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+	  <groupId>org.shangyang.springcloud</groupId>
+	  <artifactId>springcloud-demo</artifactId>
+	  <version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>microservice-stock</artifactId>
+	<packaging>pom</packaging>
+	<name>stock-service</name>
+	<description>Spring Cloud project</description>
+
+	<modules>
+		<module>stock-api</module>
+		<module>stock-service</module>
+	</modules>
+</project>
