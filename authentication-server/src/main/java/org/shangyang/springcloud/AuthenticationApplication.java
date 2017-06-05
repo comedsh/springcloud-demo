@@ -19,10 +19,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableDiscoveryClient
 @EnableAuthorizationServer
 @RestController
-public class AuthorizationApplication {
+public class AuthenticationApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AuthorizationApplication.class, args);
+        SpringApplication.run(AuthenticationApplication.class, args);
     }
 
 
