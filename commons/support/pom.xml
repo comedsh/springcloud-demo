@@ -2,32 +2,24 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 	  <groupId>org.shangyang.springcloud</groupId>
-	  <artifactId>microservice-order</artifactId>
+	  <artifactId>commons</artifactId>
 	  <version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>order-service</artifactId>
-  
+	<artifactId>support</artifactId>
+		
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 	</properties>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-logging</artifactId>
 		</dependency>	
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-oauth2</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -37,31 +29,6 @@
 	        <groupId>org.springframework.cloud</groupId>
 	        <artifactId>spring-cloud-starter-feign</artifactId>
 	    </dependency>	
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-eureka</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.shangyang.springcloud</groupId>
-			<artifactId>order-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<!-- this indicate the order service depends the stock API-->
-		<dependency>
-			<groupId>org.shangyang.springcloud</groupId>
-			<artifactId>stock-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.shangyang.springcloud</groupId>
-			<artifactId>support</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -99,6 +66,6 @@
 	            </configuration>
 	        </plugin>			
 		</plugins>
-	</build>  
+	</build>
 	
 </project>

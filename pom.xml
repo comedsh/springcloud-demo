@@ -11,5 +11,7 @@
   	<module>eureka-server</module>
   	<module>zuul-server</module>
   	<module>authentication-server</module>
+  	<module>commons</module>
+  	<module>client</module>
   </modules>
 </project>

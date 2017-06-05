@@ -1,4 +1,4 @@
-package org.shangyang.springcloud;
+package org.shangyang.springcloud.commons.support;
 
 import java.io.IOException;
 
