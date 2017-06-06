@@ -8,7 +8,6 @@
 	<artifactId>zuul-server</artifactId>
 
 	<dependencies>
-	
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-zuul</artifactId>
@@ -28,13 +27,6 @@
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 		 -->	
-		<!-- add order-api module just for JUnit test, should be ignroed in production env -->
-		<dependency>
-			<groupId>org.shangyang.springcloud</groupId>
-			<artifactId>order-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 	
 	<dependencyManagement>

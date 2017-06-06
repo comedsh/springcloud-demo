@@ -62,8 +62,6 @@ public class ClientTest {
 	    
 	    HttpHeaders headers = new HttpHeaders();
 	    
-	    headers.setContentType( MediaType.TEXT_PLAIN );
-	    
 	    headers.add( "authorization", "Bearer " + getAccessToken() );
 
 	    HttpEntity<String> entity = new HttpEntity<String>(null, headers);
