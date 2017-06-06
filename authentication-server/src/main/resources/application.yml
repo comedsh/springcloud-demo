@@ -10,7 +10,6 @@ eureka:
 security:
   user:
     password: password
-    role: USER
   oauth2:
     client:
       client-id: demo
