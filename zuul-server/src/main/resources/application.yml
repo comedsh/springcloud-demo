@@ -20,7 +20,7 @@ zuul:
     stock:
       path: /stock/**
       serviceId: stock-service
-      stripPrefix: false  
+      stripPrefix: false
     auth:
       path: /uaa/**
       serviceId: auth-service

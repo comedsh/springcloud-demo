@@ -25,7 +25,7 @@ public class ClientTest {
 	    
 	    RestTemplate restTemplate = new RestTemplate();
 	    
-	    ResponseEntity<?> result = restTemplate.postForEntity(uri, order, null);
+	    ResponseEntity<?> result = restTemplate.postForEntity(uri, order, OrderVO.class);
 	 
 	    System.out.println(result);	
 		
