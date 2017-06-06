@@ -1,5 +1,7 @@
 package org.shangyang.springcloud;
 
+import java.security.Principal;
+
 import org.apache.catalina.filters.RequestDumperFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +13,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -18,6 +23,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableAuthorizationServer
+@EnableResourceServer
 @RestController
 public class AuthenticationApplication {
 
@@ -52,6 +58,15 @@ public class AuthenticationApplication {
         }
     }
 
+    @RequestMapping("/user")
+    Object user(Principal p) {
+    	
+    	OAuth2Authentication a = (OAuth2Authentication) p;
+    	
+    	return a.getUserAuthentication().getPrincipal();    	
+        
+    }    
+    
     @Profile("!cloud")
     @Bean
     RequestDumperFilter requestDumperFilter() {

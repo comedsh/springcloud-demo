@@ -10,6 +10,7 @@ eureka:
 security:
   user:
     password: password
+    role: USER
   oauth2:
     client:
       client-id: demo
@@ -18,6 +19,8 @@ security:
       auto-approve-scopes: .*
     authorization:
       check-token-access: permitAll()
+    resource:
+      user-info-uri: /user
       
 server:
   port: 9999
