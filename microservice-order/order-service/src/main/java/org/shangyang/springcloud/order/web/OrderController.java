@@ -1,5 +1,7 @@
 package org.shangyang.springcloud.order.web;
 
+import org.shangyang.springcloud.commons.support.User;
+import org.shangyang.springcloud.commons.support.UserContext;
 import org.shangyang.springcloud.order.api.OrderVO;
 import org.shangyang.springcloud.stock.api.IRemoteStock;
 import org.shangyang.springcloud.stock.api.ProductVO;
@@ -77,9 +79,11 @@ public class OrderController {
     @RequestMapping( value = "/{id}", method = RequestMethod.GET )
     public ResponseEntity<OrderVO> get(@PathVariable("id") long id){
     	
+    	User user = UserContext.getUser(); // this is the base user authorize information;
+    	
         ServiceInstance instance = client.getLocalServiceInstance();
         
-        logger.info("/get order, host:" + instance.getHost() + ", service_id:" + instance.getServiceId());
+        logger.info("/get order, host:" + instance.getHost() + ", service_id:" + instance.getServiceId() + ", " + user.toString() );
     	
         long productId = 1000; // mock a product id;
         
