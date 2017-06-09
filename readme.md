@@ -1,6 +1,8 @@
 # Author
 
-Shang Yang, contact me: comedshang@gmail.com / comedshang@163.com; my personal blog www.shangyang.me
+Shang Yang, contact me: comedshang@gmail.com / comedshang@163.com; 
+
+welcome to my personal blog www.shangyang.me
 
 # Preface
 
