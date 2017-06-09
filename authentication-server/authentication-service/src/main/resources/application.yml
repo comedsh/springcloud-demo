@@ -2,7 +2,7 @@ spring:
   application:
     name: auth-service
   datasource:
-    url: jdbc:mysql://localhost:3306/hrx_oauth
+    url: jdbc:mysql://localhost:3306/myoauth
     username: root
     password: comedsh006 
  
