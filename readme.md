@@ -81,3 +81,9 @@ comedshang@163.com
 # Reference
 
 更多的详细介绍可参见我的私人博客 Spring Cloud 系列，http://www.shangyang.me/categories/Spring/Cloud/ 正不断更新中...
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_page_pv">
+  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>
