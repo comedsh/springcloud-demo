@@ -41,7 +41,7 @@ call the remote service B, and also, all the inner request to the resource servi
 
 ![](demo-sequence-diagram.png)
 
-<img src="demo-sequence-diagram.png" width="70%" height="70% />
+<img src="demo-sequence-diagram.png" width="70%" height="70%" />
  
 The sequence diagram is made up focus on the business flow not the functional call, and it clearly shows how the micro-service Order interact with the Stock.
 
