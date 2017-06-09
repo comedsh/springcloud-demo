@@ -18,7 +18,7 @@ public class UserContext {
 	 * 
 	 * @return the authenticated base user information 
 	 */
-    public static User getUser(){
+    public static OAuthUser getUser(){
     	
     	SecurityContext securityContext = SecurityContextHolder.getContext();
     	
@@ -28,7 +28,7 @@ public class UserContext {
     	
     	UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) oAuth.getUserAuthentication();
     	
-    	return User.convert(token);
+    	return OAuthUser.convert(token);
     	
     }
 	

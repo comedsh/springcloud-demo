@@ -1,6 +1,6 @@
 package org.shangyang.springcloud.order.web;
 
-import org.shangyang.springcloud.commons.support.User;
+import org.shangyang.springcloud.commons.support.OAuthUser;
 import org.shangyang.springcloud.commons.support.UserContext;
 import org.shangyang.springcloud.order.api.OrderVO;
 import org.shangyang.springcloud.stock.api.IRemoteStock;
@@ -79,7 +79,7 @@ public class OrderController {
     @RequestMapping( value = "/{id}", method = RequestMethod.GET )
     public ResponseEntity<OrderVO> get(@PathVariable("id") long id){
     	
-    	User user = UserContext.getUser(); // this is the base user authorize information;
+    	OAuthUser user = UserContext.getUser(); // this is the base user authorize information;
     	
         ServiceInstance instance = client.getLocalServiceInstance();
         

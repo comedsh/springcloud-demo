@@ -3,6 +3,7 @@ package org.shangyang.springcloud.commons.support;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.shangyang.springcloud.oauth.IUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -15,7 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
  * @author shangyang
  *
  */
-public class User {
+public class OAuthUser implements IUser{
 	
 	String username;
 	
@@ -37,11 +38,11 @@ public class User {
 		this.roles = roles;
 	}
 	
-	public static User convert(Authentication auth){
+	public static OAuthUser convert(Authentication auth){
 		
 		if( auth == null ) return null;
 		
-		User u = new User();
+		OAuthUser u = new OAuthUser();
 		
 		u.setUsername( (String) auth.getPrincipal() );
 		
