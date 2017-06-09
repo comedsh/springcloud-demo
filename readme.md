@@ -31,15 +31,13 @@ the resources server must be authenticated; here, the resources servers are comp
 
 ## the interactive diagram
 
-![](interactive-diagram.png)
+<img src="interactive-diagram.png" width="80%" height="80%" />
 
 This was the most simplest interactive diagram shows on a user how to get interact with the infrastructure to get the private resources,
 it clears shows that, the user request is routed by the Gateway ZUUL to the destination micro-service A, then A uses the Ribbon or Feign to remote
 call the remote service B, and also, all the inner request to the resource services A and B are protected by the Authentication server that's OAuth2  
 
 ## the sequence diagram 
-
-![](demo-sequence-diagram.png)
 
 <img src="demo-sequence-diagram.png" width="90%" height="90%" />
  
