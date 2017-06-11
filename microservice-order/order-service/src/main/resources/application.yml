@@ -12,9 +12,10 @@ eureka:
       
 security:
   oauth2:
+    # 想要 token relay，首先，该微服务 order-service 必须是一个合法的 client，才能进行 token relay
     client:
-      client-id: demo
-      client-secret: demo
+      client-id: inner
+      client-secret: inner
     resource:
       token-info-uri: http://localhost:8000/uaa/oauth/check_token  
 

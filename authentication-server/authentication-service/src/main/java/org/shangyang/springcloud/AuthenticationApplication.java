@@ -172,7 +172,12 @@ public class AuthenticationApplication {
 						.authorizedGrantTypes("password")
 						.authorities("ROLE_CLIENT").scopes("read", "write", "trust")
 						.resourceIds("oauth2-resource").secret("demo")
-						.accessTokenValiditySeconds(3600);
+						.accessTokenValiditySeconds(3600).and()
+					.withClient("inner")
+						.authorizedGrantTypes("password")
+						.authorities("ROLE_CLIENT").scopes("read", "write", "trust")
+						.resourceIds("oauth2-resource").secret("inner")
+						.accessTokenValiditySeconds(3600);	
 			// @formatter:on
 		}
 

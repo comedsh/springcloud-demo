@@ -2,7 +2,7 @@
 
 Shang Yang, contact me: comedshang@gmail.com / comedshang@163.com; 
 
-welcome to my personal blog www.shangyang.me
+welcome to my personal blog <a href="http://www.shangyang.me">www.shangyang.me</a>
 
 # Preface
 

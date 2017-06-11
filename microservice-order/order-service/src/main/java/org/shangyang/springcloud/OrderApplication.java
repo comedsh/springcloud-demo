@@ -45,14 +45,6 @@ public class OrderApplication extends ResourceServerConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/order/**").access("#oauth2.hasScope('write')")
                 .antMatchers(HttpMethod.PUT, "/order/**").access("#oauth2.hasScope('write')");
     }	
-
-
-    @LoadBalanced
-    @Bean
-    public OAuth2RestTemplate loadBalancedOauth2RestTemplate(
-            OAuth2ProtectedResourceDetails resource, OAuth2ClientContext context) {
-        return new OAuth2RestTemplate(resource, context);
-    }    
     
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(OrderApplication.class).web(true).run(args);
