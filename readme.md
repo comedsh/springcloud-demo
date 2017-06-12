@@ -2,7 +2,7 @@
 
 Shang Yang, contact me: comedshang@gmail.com / comedshang@163.com; 
 
-welcome to my personal blog <a href="http://www.shangyang.me">www.shangyang.me</a>
+welcome to my personal blog http://www.shangyang.me
 
 # Preface
 
@@ -45,6 +45,16 @@ call the remote service B, and also, all the inner request to the resource servi
  
 The sequence diagram is made up focus on the business flow not the functional call, and it clearly shows how the micro-service Order interact with the Stock.
 
+## server ports information
+
+| Service          | Port          | 
+|:----------------:|:-------------:|
+| Gateway          | 8000		   |
+| Authentication   | 9999      	   |
+| Service Register | 1111          |
+| Order Service	   | 2000          |
+| Stock Service    | 3000          |
+
 # the current version
 
 the current version uses the mysql as the database to store the user and client authorization information including the user credentials, access\_token, refresh\_token, the client credentials and so on.... 
@@ -55,6 +65,10 @@ create a schema named _myoauth_ on your local mysql server, all the database sch
 what the only thing that you need to do is just create your schema, and tables will be automatically created since the Authentication Server get started.
 
 And the database configuration is in _application.yml_ of sub project authentication-service.
+
+## start the test case
+
+test cases are defined in org.shangyang.springcloud.client.ClientTest.java, two major test cases are provided, get the order and post the order, are made by RestTemplate you can refer to; 
 
 # contact me
 

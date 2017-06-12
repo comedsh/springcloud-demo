@@ -17,7 +17,7 @@ security:
       client-id: inner
       client-secret: inner
     resource:
-      token-info-uri: http://localhost:8000/uaa/oauth/check_token  
+      token-info-uri: http://localhost:8000/uaa/oauth/check_token
 
 hystrix.shareSecurityContext: true
 
