@@ -20,6 +20,7 @@ public class UserContext {
 	 */
     public static OAuthUser getUser(){
     	
+    	// refer to http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#securitycontextholder-securitycontext-and-authentication-objects
     	SecurityContext securityContext = SecurityContextHolder.getContext();
     	
     	if( securityContext == null ) return null;

@@ -186,6 +186,8 @@ public class AuthenticationApplication {
 	/**
 	 * 在数据库中设置初始账户
 	 * 
+	 * refer to doc http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#jc-authentication-jdbc
+	 * 
 	 * @param auth
 	 * @throws Exception
 	 */
