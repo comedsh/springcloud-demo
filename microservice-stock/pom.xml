@@ -9,7 +9,6 @@
 	<packaging>pom</packaging>
 	<name>stock-service</name>
 	<description>Spring Cloud project</description>
-
 	<modules>
 		<module>stock-api</module>
 		<module>stock-service</module>

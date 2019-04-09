@@ -6,12 +6,10 @@
 	  <version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>order-service</artifactId>
-  
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -65,27 +63,6 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
-
-	<dependencyManagement>
-		<dependencies>
-	        <dependency>
-	            <!-- Import dependency management from Spring Boot -->
-	            <groupId>org.springframework.boot</groupId>
-	            <artifactId>spring-boot-dependencies</artifactId>
-	            <version>1.3.5.RELEASE</version>
-	            <type>pom</type>
-	            <scope>import</scope>
-	        </dependency>		
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>Brixton.RELEASE</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<build>
 		<plugins>
 			<plugin>
