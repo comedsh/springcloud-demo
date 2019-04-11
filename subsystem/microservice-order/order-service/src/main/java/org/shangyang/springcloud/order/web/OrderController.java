@@ -43,9 +43,7 @@ public class OrderController {
     /**
      * 模拟生成订单接口，生成订单的同时会调用 stock 的远程接口进行库存扣减操作；
      * 
-     * @param orderid
-     * @param productid
-     * @param quantity
+     * @param order
      * @return
      */
     @RequestMapping( method = RequestMethod.POST, consumes = "application/json") // 加上 consumes 表示该接口只接受 header 为 application/json 的接口调用 
@@ -60,7 +58,7 @@ public class OrderController {
         }else{
         	logger.error("====> failed of creating the order with order id: " + order.getOrderId() );
         }        
-        return new ResponseEntity<OrderVO>(order, HttpStatus.CREATED);
+        return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
     
     /**
