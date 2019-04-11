@@ -5,7 +5,7 @@ spring:
     url: jdbc:mysql://localhost:3306/myoauth
     username: root
     password:  
- 
+
 eureka:
   client:
     serviceUrl:

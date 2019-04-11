@@ -10,9 +10,6 @@ import java.util.List;
  *
  */
 public interface IUser {
-
 	public String getUsername();
-	
 	public List<String> getRoles();
-	
 }

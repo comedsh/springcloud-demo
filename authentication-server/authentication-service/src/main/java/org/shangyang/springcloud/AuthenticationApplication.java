@@ -95,12 +95,9 @@ public class AuthenticationApplication {
     
     @RequestMapping("/user")
     Object user(Principal p) {
-    	
     	OAuth2Authentication a = (OAuth2Authentication) p;
-    	
-    	return a.getUserAuthentication().getPrincipal();    	
-        
-    }    
+    	return a.getUserAuthentication().getPrincipal();
+    }
     
     /**
      * 为测试环境添加相关的 Request Dumper information，便于调试
@@ -143,23 +140,19 @@ public class AuthenticationApplication {
 
 		@Override
 		public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-			
 			security.passwordEncoder(passwordEncoder);
-			
 			// 这个等价于配置 security.oauth2.client.auto-approve-scopes: .*
 			security.allowFormAuthenticationForClients();
-			
 			// 允许 /oauth/check/token 等链接访问；
 			security.checkTokenAccess("permitAll()");						
-			
 		}
 
 		@Override
 		public void configure(AuthorizationServerEndpointsConfigurer endpoints)
 				throws Exception {
 			endpoints.authorizationCodeServices(authorizationCodeServices())
-					 .authenticationManager(auth).tokenStore(tokenStore())
-					 .approvalStoreDisabled();
+					 .authenticationManager(auth).tokenStore(tokenStore());
+					 //.approvalStoreDisabled();
 		}
 
 		@Override

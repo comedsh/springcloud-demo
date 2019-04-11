@@ -50,24 +50,17 @@ public class OrderController {
      */
     @RequestMapping( method = RequestMethod.POST, consumes = "application/json") // 加上 consumes 表示该接口只接受 header 为 application/json 的接口调用 
     public ResponseEntity<OrderVO> create(@RequestBody OrderVO order) {
-    	
         ServiceInstance instance = client.getLocalServiceInstance();
-        
         logger.info("/create order, host:" + instance.getHost() + ", service_id:" + instance.getServiceId());
-
         // 调用 stock 微服务接口，进行库存扣减；
-        
-        ResponseEntity<String> entity = stock.reduce( order.getProduct().getProductId(), new StockVO( order.getProduct().getProductId(), 
+        ResponseEntity<String> entity = stock.reduce( order.getProduct().getProductId(), new StockVO( order.getProduct().getProductId(),
         		order.getProduct().getProductName(), order.getQuantity()));
-        
         if( entity.getStatusCode().equals(HttpStatus.OK) ){
         	logger.info("====> success of creating the order with order id: " + order.getOrderId() );
         }else{
         	logger.error("====> failed of creating the order with order id: " + order.getOrderId() );
         }        
-        
         return new ResponseEntity<OrderVO>(order, HttpStatus.CREATED);
-        
     }
     
     /**
@@ -78,23 +71,14 @@ public class OrderController {
      */
     @RequestMapping( value = "/{id}", method = RequestMethod.GET )
     public ResponseEntity<OrderVO> get(@PathVariable("id") long id){
-    	
     	OAuthUser user = UserContext.getUser(); // this is the base user authorize information;
-    	
         ServiceInstance instance = client.getLocalServiceInstance();
-        
         logger.info("/get order, host:" + instance.getHost() + ", service_id:" + instance.getServiceId() + ", " + user.toString() );
-    	
         long productId = 1000; // mock a product id;
-        
         ResponseEntity<ProductVO> entity = stock.getProduct( productId ); // then get the product from the Stock Service;
-        
         ProductVO product = entity.getBody();
-        
-        OrderVO order = new OrderVO(id, product.getProductId(), product.getProductName(), 10 ); 
-        
+        OrderVO order = new OrderVO(id, product.getProductId(), product.getProductName(), 10 );
         return new ResponseEntity<OrderVO>(order, HttpStatus.OK );
-    	
     }
 
 }
