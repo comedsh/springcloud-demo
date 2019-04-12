@@ -1,24 +1,18 @@
 package org.shangyang.springcloud.client;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.Test;
 import org.shangyang.springcloud.order.api.OrderVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.databind.SerializationFeature;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * 
@@ -50,7 +44,7 @@ public class ClientTest {
 	    RestTemplate rest = new RestTemplate();
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.add( "authorization", "Bearer " + getAccessToken() );
-	    HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+	    HttpEntity<String> entity = new HttpEntity<>(null, headers);
 	    // pay attention, if using get with headers, should use exchange instead of getForEntity / getForObject
 	    ResponseEntity<OrderVO> resp = rest.exchange( GET_ORDER_URI, HttpMethod.GET, entity, OrderVO.class, new Object[]{ null } );
 	    OrderVO order = resp.getBody();
@@ -99,9 +93,7 @@ public class ClientTest {
 	    logger.debug("the response, access_token: " + t.getValue() +"; token_type: " + t.getTokenType() +"; "
 				+ "refresh_token: " + t.getRefreshToken() +"; expiration: " + t.getExpiresIn()
 				+ ", expired when:" + t.getExpiration() );
-		
 	    return t.getValue();
-
 	}
 
 	/**
