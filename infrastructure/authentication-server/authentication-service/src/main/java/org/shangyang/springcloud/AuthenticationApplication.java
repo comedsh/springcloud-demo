@@ -1,11 +1,8 @@
 package org.shangyang.springcloud;
 
-import java.security.Principal;
-
-import javax.sql.DataSource;
-
 import org.apache.catalina.filters.RequestDumperFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -15,9 +12,11 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.provisioning.JdbcUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -29,10 +28,14 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import javax.sql.DataSource;
+import java.security.Principal;
 
 /**
  *
@@ -54,7 +57,6 @@ public class AuthenticationApplication {
     public static void main(String[] args) {
         SpringApplication.run(AuthenticationApplication.class, args);
     }
-
 
     // 配置 URL 到 view 之间的映射
     @Configuration
@@ -91,6 +93,12 @@ public class AuthenticationApplication {
                 .authorizeRequests()
                 .anyRequest().authenticated(); // 访问其余的所有资源的前提是，必须被验证通过
         }
+
+		@Override
+		@Bean
+		public AuthenticationManager authenticationManagerBean() throws Exception {
+			return super.authenticationManagerBean();
+		}
     }
     
     @RequestMapping("/user")
@@ -121,7 +129,8 @@ public class AuthenticationApplication {
 	protected static class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
 		@Autowired
-		private AuthenticationManager auth;
+		@Qualifier("authenticationManagerBean")
+		private AuthenticationManager authMgmr;
 
 		@Autowired
 		private DataSource dataSource;
@@ -148,10 +157,9 @@ public class AuthenticationApplication {
 		}
 
 		@Override
-		public void configure(AuthorizationServerEndpointsConfigurer endpoints)
-				throws Exception {
+		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 			endpoints.authorizationCodeServices(authorizationCodeServices())
-					 .authenticationManager(auth).tokenStore(tokenStore());
+					 .authenticationManager(authMgmr).tokenStore(tokenStore());
 					 //.approvalStoreDisabled();
 		}
 
@@ -173,7 +181,6 @@ public class AuthenticationApplication {
 						.accessTokenValiditySeconds(3600);	
 			// @formatter:on
 		}
-
 	}
 	
 	/**
@@ -186,12 +193,14 @@ public class AuthenticationApplication {
 	 */
 	@Autowired
 	public void init(AuthenticationManagerBuilder auth) throws Exception {
-		
 		// 通过 @see UserDetailsBuilder 在应用程序启动的时候，自动将测试用户添加到 USERS 表中；
-		auth.jdbcAuthentication().dataSource(dataSource)
-								 .withUser("shangyang").password("password").roles("USER", "ACTUATOR").and()
-								 .withUser("user").password("password").roles("USER", "ACTUATOR");
-		
+		// 版本升级以后，数据库不会事先清空再创建测试数据了，所以下面的初始化数据如果两次执行会报错，需要手动清理数据
+		JdbcUserDetailsManagerConfigurer c = auth.jdbcAuthentication().dataSource(dataSource);
+		UserDetailsManager m = c.getUserDetailsService();
+		m.deleteUser("shangyang");
+		m.deleteUser("user");
+		c.withUser("shangyang").password("password").roles("USER", "ACTUATOR").and()
+		 .withUser("user").password("password").roles("USER", "ACTUATOR");
 	}
-    
+
 }

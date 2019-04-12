@@ -1,6 +1,8 @@
 spring:
   application:
     name: gateway-service
+  main:
+    allow-bean-definition-overriding: true
 
 server:
   port: 8000
@@ -30,6 +32,7 @@ zuul.sensitiveHeaders: Cookie,Set-Cookie
       
 logging:
   level:
+    root: DEBUG
     org.springframework.security: DEBUG
     org.springframework.cloud: DEBUG
     org.springframework.web: DEBUG

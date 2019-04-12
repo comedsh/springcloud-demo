@@ -1,7 +1,9 @@
 spring:
   application:
     name: order-service
-    
+  main:
+    allow-bean-definition-overriding: true
+
 server:
   port: 2000
   
@@ -19,7 +21,8 @@ security:
     resource:
       token-info-uri: http://localhost:8000/uaa/oauth/check_token
 
-hystrix.shareSecurityContext: true
+hystrix:
+  shareSecurityContext: true
 
 logging:
   level:

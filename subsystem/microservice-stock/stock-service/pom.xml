@@ -12,6 +12,10 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-oauth2</artifactId>
 		</dependency>
@@ -27,21 +31,16 @@
 		</dependency>	
 	    <dependency>
 	        <groupId>org.springframework.cloud</groupId>
-	        <artifactId>spring-cloud-starter-feign</artifactId>
-	    </dependency>	
+	        <artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-eureka</artifactId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.shangyang.springcloud</groupId>
-			<artifactId>stock-api</artifactId>
-			<version>${global.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.shangyang.springcloud</groupId>

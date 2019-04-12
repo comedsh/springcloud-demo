@@ -4,7 +4,13 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/myoauth
     username: root
-    password:  
+    password:
+  # org.springframework.beans.factory.support.BeanDefinitionOverrideException: Invalid bean definition with name 'dataSource'
+  # defined in BeanDefinition defined in class path resource
+  # [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]
+  # 导致上面这个错误的原因是，是因为从 Spring Boot 2.1.x 开始取消了重载 bean definitions 的的特性，下面这个配置是重新开启它；
+  main:
+    allow-bean-definition-overriding: true
 
 eureka:
   client:
@@ -25,7 +31,8 @@ security:
       
 server:
   port: 9999
-  context-path: /uaa
+  servlet:
+    context-path: /uaa
   
 logging:
   level:
