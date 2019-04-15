@@ -3,6 +3,7 @@ package org.shangyang.springcloud;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.HttpMethod;
@@ -15,6 +16,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @EnableDiscoveryClient
 @EnableResourceServer
 @EnableFeignClients
+@EnableCircuitBreaker
 public class OrderApplication extends ResourceServerConfigurerAdapter {
 
     /**

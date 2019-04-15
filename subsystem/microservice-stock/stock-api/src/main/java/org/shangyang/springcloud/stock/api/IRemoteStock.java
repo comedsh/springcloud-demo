@@ -1,7 +1,9 @@
 package org.shangyang.springcloud.stock.api;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,14 +19,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author shangyang
  *
  */
-@FeignClient("stock-service")
+@FeignClient(name="stock-service", fallback = HystrixRemoteStockFallback.class)
 public interface IRemoteStock {
 
-	@RequestMapping(method=RequestMethod.PUT, value="/stock/{productid}")
-	ResponseEntity<String> reduce(@PathVariable(value="productid") long productid, @RequestBody StockVO stock );
-	
-	@RequestMapping(method=RequestMethod.GET, value = "/stock/product/{productid}")
-	ResponseEntity<ProductVO> getProduct(@PathVariable(value="productid") long productid );
-	
-	
+	@RequestMapping(method = RequestMethod.PUT, value = "/stock/{productid}")
+	ResponseEntity<String> reduce(@PathVariable(value = "productid") long productid, @RequestBody StockVO stock);
+
+	@RequestMapping(method = RequestMethod.GET, value = "/stock/product/{productid}")
+	ResponseEntity<ProductVO> getProduct(@PathVariable(value = "productid") long productid);
+}
+
+/**
+ * 如何添加 Hystrix 参考 http://nphumbert.github.io/blog/2017/07/23/setup-a-circuit-breaker-with-hystrix/
+ * 如果想要捕获异常，在 @FeignClient 的属性中使用 fallbackFactory；
+ *
+ * 这里需要注意的是，Hystrix 需要配置到上游系统中，因为 Hystrix 就是对下游系统不可用提供熔断的机制，因此需要在 Order 子系统中配置并启动
+ * Hystrix；
+ */
+@Component
+class HystrixRemoteStockFallback implements IRemoteStock{
+
+	@Override
+	public ResponseEntity<String> reduce(long productid, StockVO stock) {
+		return new ResponseEntity<>( "failed, hystrix enabled", HttpStatus.SERVICE_UNAVAILABLE );
+	}
+
+	@Override
+	public ResponseEntity<ProductVO> getProduct(@PathVariable(value = "productid") long productid){
+		return new ResponseEntity<>( new ProductVO(-1, null), HttpStatus.SERVICE_UNAVAILABLE );
+	}
 }

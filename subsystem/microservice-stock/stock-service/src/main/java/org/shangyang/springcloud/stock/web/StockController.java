@@ -38,8 +38,7 @@ public class StockController {
         logger.info("/reduce stock, host:" + serviceInstance.getHost() + ", service_id:" + serviceInstance.getServiceId());
         logger.info("====> success reduced " + stock.getReduce() + " products with product id:"+productid);
         return new ResponseEntity<>(HttpStatus.OK);
-        
-    }	
+    }
     
     @RequestMapping(value = "/product/{productid}", method = RequestMethod.GET )
     @ResponseBody
