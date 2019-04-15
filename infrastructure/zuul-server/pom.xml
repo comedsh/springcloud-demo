@@ -11,6 +11,13 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
 		</dependency>
+		<!--
+			必须配置 zuul 为 eureka client，并且设置两个 eureka 的相关属性，
+				registerWithEureka: false
+				fetchRegistry: true
+			表示只读取 eureka server 上的信息，不注册；否则会报 "Load balancer does not have available server for client" 这样
+			的错误！
+		-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -20,6 +27,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!--
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
+		-->
 		<!-- 热启动经常会导致写莫名其妙的错误，所以注释掉 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -32,7 +32,12 @@ public class ClientTest {
 	final static String GET_ORDER_URI = "http://localhost:"+GATEWAY_PORT+"/order/"+TEST_ORDER_ID;
 	final static String POST_ORDER_URI = "http://localhost:"+GATEWAY_PORT+"/order";
 	final static String TOKEN_REQUEST_URI = "http://localhost:"+GATEWAY_PORT+"/uaa/oauth/token?grant_type=password&username=" + USERNAME + "&password=" + PASS;
-	
+
+	@Test
+	public void testGetAccessToken(){
+		logger.debug("access token: {}", this.getAccessToken());
+	}
+
 	/**
 	 * 该测试用例的流程为 
 	 * 

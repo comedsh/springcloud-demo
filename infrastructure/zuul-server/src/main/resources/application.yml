@@ -11,10 +11,17 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:1111/eureka/
-  
+      registerWithEureka: false
+      fetchRegistry: true
+
 zuul:
   ignoredServices: '*'
+  sensitiveHeaders: Cookie,Set-Cookie
   routes:
+    auth:
+      path: /uaa/**
+      serviceId: auth-service
+      stripPrefix: false
     order:
       path: /order/**
       serviceId: order-service
@@ -23,13 +30,14 @@ zuul:
       path: /stock/**
       serviceId: stock-service
       stripPrefix: false
-    auth:
-      path: /uaa/**
-      serviceId: auth-service
-      stripPrefix: false
 
-zuul.sensitiveHeaders: Cookie,Set-Cookie
-      
+# Gateway 容易 timeout，增加 timeout 的时限；
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+ribbon:
+  ConnectTimeout: 3000
+  SocketTimeout: 3000
+  ReadTimeout: 60000
+
 logging:
   level:
     root: DEBUG

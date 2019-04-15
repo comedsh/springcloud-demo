@@ -9,6 +9,7 @@ import org.shangyang.springcloud.stock.api.StockVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
  *
  */
 @RestController
-@EnableOAuth2Client
 @RequestMapping(value="/order")
 public class OrderController {
 
@@ -70,6 +70,7 @@ public class OrderController {
         ResponseEntity<ProductVO> entity = stock.getProduct( productId ); // then get the product from the Stock Service;
         ProductVO product = entity.getBody();
         OrderVO order = new OrderVO(id, product.getProductId(), product.getProductName(), 10 );
+        //OrderVO order = new OrderVO(id, 1000, "sample", 10 );
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
