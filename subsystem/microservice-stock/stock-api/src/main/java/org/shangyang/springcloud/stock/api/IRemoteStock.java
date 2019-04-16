@@ -34,7 +34,7 @@ public interface IRemoteStock {
  * 如果想要捕获异常，在 @FeignClient 的属性中使用 fallbackFactory；
  *
  * 这里需要注意的是，Hystrix 需要配置到上游系统中，因为 Hystrix 就是对下游系统不可用提供熔断的机制，因此需要在 Order 子系统中配置并启动
- * Hystrix；
+ * Hystrix；如何测试？只需要把 Stock Service 关闭即可；
  */
 @Component
 class HystrixRemoteStockFallback implements IRemoteStock{
