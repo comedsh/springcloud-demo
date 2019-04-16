@@ -11,7 +11,15 @@ import org.springframework.context.annotation.Profile;
 /**
  *
  * OAuth2 Authorization Server configuration; 
- * 
+ *
+ * Steps to records how to enable the Asymmetric JWT:
+ * 1. generate the certification
+ *    $ keytool -genkeypair -alias mytest -keyalg RSA -keypass mypass -keystore mytest.jks -storepass mypass
+ *    copy the mytest.jks into authorization server path: src/main/java/resources/
+ * 2. generate the public.txt
+ *    $ keytool -list -rfc --keystore mytest.jks | openssl x509 -inform pem -pubkey -noout
+ *    copy the content into resource server path: src/main/java/resources/public.txt
+ *
  * @author shangyang
  *
  */

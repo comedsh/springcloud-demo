@@ -80,7 +80,15 @@
 	                <source>1.8</source>    
 	                <target>1.8</target>    
 	            </configuration>
-	        </plugin>			
+	        </plugin>
+			<!-- make sure add the resources into classpath -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<addResources>true</addResources>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>  
 </project>
