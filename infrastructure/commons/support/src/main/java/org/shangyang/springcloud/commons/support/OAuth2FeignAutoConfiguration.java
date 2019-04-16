@@ -48,8 +48,11 @@ import org.springframework.security.oauth2.client.OAuth2ClientContext;
  *    配置也很简单，在 application.yml 中添加如下的内容，
  *      hystrix.command.default.execution.isolation.strategy: SEMAPHORE
  *    将 hystrix 的默认线程模式从 THREAD 改为 SEMAPHORE 即可，SEMAPHORE 表示让 Hystrix 使用相同线程；
- * 2. 另外一个解决方案是，将属性 hystrix.shareSecurityContext 设置为 <b>true</b>
- *    这样，可以不改动 Hystrix 的默认线程模式，
+ * 2. 另外一个解决方案是，将属性 hystrix.shareSecurityContext 设置为 <b>true</b>，这样，可以不改动 Hystrix 的默认线程模式；但是要注意
+ *    的是，这种方式默认只会把 SecurityContext 传递给 Hystrix，并不是之前所使用的 OAuth2ClientContext；正是因为传递的不是 OAuth2ClientContext
+ *    会导致 OAuth 的一些性质受限，比如 Refresh Token 的机制就不能使用了；并且需要通过 SecurityContextHolder 来获取；关于传递的实现过程，
+ *    参考历史 https://github.com/spring-cloud/spring-cloud-netflix/issues/1336；
+ *
  * Reference:
  *  - 官网: https://cloud.spring.io/spring-cloud-static/spring-cloud-netflix/2.1.0.RELEASE/single/spring-cloud-netflix.html#netflix-hystrix-starter
  *  - Hystrix 配置详细介绍: https://github.com/Netflix/Hystrix/wiki/Configuration#execution.isolation.strategy

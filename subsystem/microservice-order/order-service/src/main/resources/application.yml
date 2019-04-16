@@ -26,15 +26,18 @@ feign:
   hystrix:
     enabled: true
 
+# Hystrix 传递 access token 的两种实现方式，一种是配置 shareSecurityContext = true 使得传递 SecurityContext 对象，另一种方案就是
+# 将 Hystrix 的线程模式配置为 SEMAPHORE 模式；现在的实现方案是采用的是第一种方案！
 hystrix:
   shareSecurityContext: true
   command:
     default:
       execution:
         isolation:
-          strategy: SEMAPHORE
+#         strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 60000
 
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
 ribbon:
   ConnectTimeout: 3000
   SocketTimeout: 3000
