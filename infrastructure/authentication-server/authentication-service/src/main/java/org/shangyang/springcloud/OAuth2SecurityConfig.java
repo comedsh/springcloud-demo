@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,7 +21,11 @@ import org.springframework.security.oauth2.provider.NoSuchClientException;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.util.Assert;
 
 import javax.sql.DataSource;
@@ -33,17 +38,12 @@ public class OAuth2SecurityConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     @Qualifier("authenticationManagerBean")
-    private AuthenticationManager authMgmr;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     private DataSource dataSource;
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-    @Bean
-    public JdbcTokenStore tokenStore() {
-        return new JdbcTokenStore(dataSource);
-    }
 
     @Bean
     protected AuthorizationCodeServices authorizationCodeServices() {
@@ -61,9 +61,35 @@ public class OAuth2SecurityConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.authorizationCodeServices(authorizationCodeServices())
-                .authenticationManager(authMgmr).tokenStore(tokenStore());
-        //.approvalStoreDisabled();
+        endpoints.tokenStore(tokenStore())
+                .accessTokenConverter(accessTokenConverter())
+                .authenticationManager(authenticationManager);
+    }
+
+//    @Bean
+//    public JdbcTokenStore tokenStore() {
+//        return new JdbcTokenStore(dataSource);
+//    }
+
+    @Bean
+    public TokenStore tokenStore() {
+        return new JwtTokenStore(accessTokenConverter());
+    }
+
+    @Bean
+    public JwtAccessTokenConverter accessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey("123");
+        return converter;
+    }
+
+    @Bean
+    @Primary
+    public DefaultTokenServices tokenServices() {
+        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+        defaultTokenServices.setTokenStore(tokenStore());
+        defaultTokenServices.setSupportRefreshToken(true);
+        return defaultTokenServices;
     }
 
     /**
@@ -75,7 +101,7 @@ public class OAuth2SecurityConfig extends AuthorizationServerConfigurerAdapter {
      * Reference https://github.com/spring-projects/spring-security-oauth/issues/864
      */
     @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+    public void configure(ClientDetailsServiceConfigurer clients){
         MyJdbcClientDetailsServiceBuilder clientDetailsServiceBuilder = new MyJdbcClientDetailsServiceBuilder();
         clientDetailsServiceBuilder.dataSource(dataSource).passwordEncoder(passwordEncoder)
                         .withClient("demo")

@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author shangyang
  *
  */
-@FeignClient(name="stock-service", fallback = HystrixRemoteStockFallback.class)
+// @FeignClient(name="stock-service", fallback = HystrixRemoteStockFallback.class)
+@FeignClient(name="stock-service")
 public interface IRemoteStock {
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/stock/{productid}")

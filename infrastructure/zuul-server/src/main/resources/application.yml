@@ -33,15 +33,15 @@ zuul:
 
 # Gateway 容易 timeout，增加 timeout 的时限；
 # https://cloud.spring.io/spring-cloud-static/spring-cloud-netflix/2.1.0.RELEASE/single/spring-cloud-netflix.html#_zuul_timeouts
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
-ribbon:
-  ConnectTimeout: 3000
-  SocketTimeout: 3000
-  ReadTimeout: 60000
+#hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+#ribbon:
+#  ConnectTimeout: 3000
+#  SocketTimeout: 3000
+#  ReadTimeout: 60000
 
 logging:
   level:
-    root: DEBUG
+    # root: DEBUG
     org.springframework.security: DEBUG
     org.springframework.cloud: DEBUG
     org.springframework.web: DEBUG
